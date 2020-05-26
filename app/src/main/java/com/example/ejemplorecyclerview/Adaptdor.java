@@ -23,19 +23,23 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
      */
     private List<Hospital> hospitales;
 
+    private OnClickCustom onClickCustom;
+
     /**
      * ViewHolder del RecylerView. Se encarga de cargar el layout de cada tarjeta el RecyclerView. Contiene todos los elementos de cada tarjeta.
      *
      * @see Adaptdor
      */
-    public static class MyHolder extends RecyclerView.ViewHolder {
+    public static class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         /**
          * TextView de cada tarjeta
          */
         private TextView lblHospital, lblUCI, lblPlanta, lblUrgencias, lblDisponible;
 
-        public MyHolder(@NonNull View v) {
+        private OnClickCustom onClickCustom;
+
+        public MyHolder(@NonNull View v, OnClickCustom onClickCustom) {
             super(v);
 
             lblHospital = v.findViewById(R.id.lblHospital);
@@ -44,6 +48,15 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
             lblUrgencias = v.findViewById(R.id.lblurgencias);
             lblPlanta = v.findViewById(R.id.lblPlanta);
             lblDisponible = v.findViewById(R.id.lblDisponible);
+
+            v.setOnClickListener(this);
+
+            this.onClickCustom = onClickCustom;
+        }
+
+        @Override
+        public void onClick(View v) {
+            onClickCustom.click(getAdapterPosition());
         }
     }
 
@@ -53,8 +66,9 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
      * @param hospitales lista de hospitales
      * @see Hospital
      */
-    public Adaptdor(List<Hospital> hospitales) {
+    public Adaptdor(List<Hospital> hospitales, OnClickCustom onClickCustom) {
         this.hospitales = hospitales;
+        this.onClickCustom = onClickCustom;
     }
 
 
@@ -62,7 +76,7 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
     @Override
     public Adaptdor.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recycler, parent, false);
-        return new MyHolder(v);
+        return new MyHolder(v, onClickCustom);
     }
 
     /**
@@ -97,5 +111,9 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
     @Override
     public int getItemCount() {
         return hospitales.size();
+    }
+
+    public interface OnClickCustom {
+        void click(int position);
     }
 }

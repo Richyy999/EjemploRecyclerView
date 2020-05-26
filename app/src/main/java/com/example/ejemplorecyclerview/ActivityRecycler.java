@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ import java.util.List;
  * @see Hospital
  * @see Adaptdor
  */
-public class ActivityRecycler extends AppCompatActivity {
+public class ActivityRecycler extends AppCompatActivity implements Adaptdor.OnClickCustom {
 
     /**
      * RecyclerView con los datos de los hospitales
@@ -33,6 +34,8 @@ public class ActivityRecycler extends AppCompatActivity {
      * TextView con la palabra Recomendados
      */
     private TextView lblRecomendados;
+
+    List<Hospital> listaHospitales;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +65,7 @@ public class ActivityRecycler extends AppCompatActivity {
         Hospital h5 = new Hospital("12 de Octubre", 12, 12, 12, 12);
 
         //Creo la lista de hospitales
-        List<Hospital> listaHospitales = new ArrayList<>();
+        listaHospitales = new ArrayList<>();
         //Añado los hospitales a la lista
         listaHospitales.add(h1);
         listaHospitales.add(h2);
@@ -75,12 +78,20 @@ public class ActivityRecycler extends AppCompatActivity {
         listaHospitales.add(h5);
 
         //Creo el adaptador y hago un set del adaptador en el RecyclerView
-        adapter = new Adaptdor(listaHospitales);
+        adapter = new Adaptdor(listaHospitales, this);
         recyclerView.setAdapter(adapter);
 
         //Inicializo el TextView
         lblRecomendados = findViewById(R.id.lblRecomendados);
         //Cambio la tipografía a negrita
         lblRecomendados.setTypeface(lblRecomendados.getTypeface(), Typeface.BOLD);
+    }
+
+    @Override
+    public void click(int position) {
+        Hospital h = listaHospitales.get(position);
+        Intent inte = new Intent(this, ActivityHospital.class);
+        inte.putExtra("nombre", h.getNombre());
+        startActivity(inte);
     }
 }
