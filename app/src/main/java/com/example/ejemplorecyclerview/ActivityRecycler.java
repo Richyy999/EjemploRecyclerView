@@ -14,9 +14,13 @@ import java.util.List;
 
 /**
  * Activity principal de la aplicación. Contiene el RecyclerView con los datos de los hospitales
+ * e implementa la interfaz personalizada del adaptador
  *
  * @see Hospital
  * @see Adaptdor
+ * @see Adaptdor.MyHolder
+ * @see Adaptdor.OnClickCustom
+ * @see Adaptdor.OnClickCustom#click(int) 
  */
 public class ActivityRecycler extends AppCompatActivity implements Adaptdor.OnClickCustom {
 
@@ -87,6 +91,13 @@ public class ActivityRecycler extends AppCompatActivity implements Adaptdor.OnCl
         lblRecomendados.setTypeface(lblRecomendados.getTypeface(), Typeface.BOLD);
     }
 
+    /**
+     * Selecciono el hospital y le paso su nombre al ActivityHospital
+     *
+     * @param position posición en del elemento seleccionado
+     * @see ActivityHospital
+     * @see Hospital
+     */
     @Override
     public void click(int position) {
         Hospital h = listaHospitales.get(position);

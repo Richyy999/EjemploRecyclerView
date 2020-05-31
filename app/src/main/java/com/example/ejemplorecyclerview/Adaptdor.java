@@ -23,11 +23,20 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
      */
     private List<Hospital> hospitales;
 
+    /**
+     * Interfaz personalizada para detectar el click sobre un elemento de la lista.
+     * La funcionalidad se implementa en el activity que contiene el RecyclerView.
+     *
+     * @see Adaptdor.OnClickCustom
+     */
     private OnClickCustom onClickCustom;
 
     /**
      * ViewHolder del RecylerView. Se encarga de cargar el layout de cada tarjeta el RecyclerView. Contiene todos los elementos de cada tarjeta.
+     * Implementa la interfaz View.OcClickListener para detectar la tarjeta escogida.
+     * Tiene un atributo del mismo tipo de la interfaz creada para detectar el click en cada tarjeta.
      *
+     * @see Adaptdor.OnClickCustom
      * @see Adaptdor
      */
     public static class MyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -37,11 +46,16 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
          */
         private TextView lblHospital, lblUCI, lblPlanta, lblUrgencias, lblDisponible;
 
+        /**
+         * Interfaz personalizada para detectar el click
+         */
         private OnClickCustom onClickCustom;
 
         public MyHolder(@NonNull View v, OnClickCustom onClickCustom) {
+            //Llamo al constructor del padre
             super(v);
 
+            //inicializo los elementos de la vista
             lblHospital = v.findViewById(R.id.lblHospital);
 
             lblUCI = v.findViewById(R.id.lblUCI);
@@ -49,13 +63,17 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
             lblPlanta = v.findViewById(R.id.lblPlanta);
             lblDisponible = v.findViewById(R.id.lblDisponible);
 
+            //Añado el OnClickListener, NO el listener personalizado
             v.setOnClickListener(this);
 
+            //Inicializo la interfaz personalizada
             this.onClickCustom = onClickCustom;
         }
 
+
         @Override
         public void onClick(View v) {
+            //Le paso a la interfaz la posición actual de cada tarjeta. No se implementa el método aquí.
             onClickCustom.click(getAdapterPosition());
         }
     }
@@ -75,22 +93,33 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
     @NonNull
     @Override
     public Adaptdor.MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //Creo un View con el layout personalizado para cada tarjeta
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_recycler, parent, false);
+
+        /**
+         * Devuelvo una instancia de la clase personalizada MyHolder con la vista y el atributo de
+         * la interfaz personalzada
+         *
+         * @see Adaptdor.OnClickCustom
+         * @see Adaptdor#onClickCustom
+         */
         return new MyHolder(v, onClickCustom);
     }
 
     /**
-     * Carga los datos en los elementos de cada ventana
+     * Carga los datos en los elementos de cada tarjeta
      *
      * @param holder   objeto de la clase MyHolder en el que se inicializan los elementos de cada tarjeta
-     * @param position posición del List qe recorre en ese momento
+     * @param position posición del List que recorre en ese momento
      * @see Adaptdor#hospitales
      * @see MyHolder
      */
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
+        //Cojo el objeto de la lista en la posición en la que se encuentre el adaptador
         Hospital h = hospitales.get(position);
 
+        //Le doy valores a los elementos de la tarjeta
         holder.lblHospital.setText(h.getNombre());
         holder.lblHospital.setTypeface(holder.lblHospital.getTypeface(), Typeface.BOLD);
 
@@ -99,6 +128,7 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
         holder.lblPlanta.setText("Camas Planta: " + String.valueOf(h.getCamasPlanta()));
         holder.lblDisponible.setText("Disponibles: " + String.valueOf(h.getCamasDisponibles()));
 
+        //Pongo el texto en negrita
         holder.lblDisponible.setTypeface(holder.lblDisponible.getTypeface(), Typeface.BOLD);
     }
 
@@ -113,7 +143,21 @@ public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
         return hospitales.size();
     }
 
+    /**
+     * Interfaz personalizada que contiene los métodos a implementar en el
+     * activity que contiene el RecyclerView
+     *
+     * @see ActivityRecycler
+     */
     public interface OnClickCustom {
+
+        /**
+         * Método que se implementa en el activity que contiene el RecyclerView
+         *
+         * @param position posición en del elemento seleccionado
+         * @see Adaptdor#onClickCustom
+         * @see ActivityRecycler#click(int)
+         */
         void click(int position);
     }
 }

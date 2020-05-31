@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityHospital"></activity>
+        <activity
+            android:name=".ActivityHospital"
+            android:parentActivityName=".ActivityRecycler" />
         <activity android:name=".ActivityRecycler">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
