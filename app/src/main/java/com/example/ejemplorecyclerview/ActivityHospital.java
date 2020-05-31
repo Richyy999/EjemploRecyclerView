@@ -5,6 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * Muestra el nombre del hospital seleccionado en el ActivityRecycler
+ *
+ * @see Hospital
+ * @see ActivityRecycler
+ */
 public class ActivityHospital extends AppCompatActivity {
 
     @Override

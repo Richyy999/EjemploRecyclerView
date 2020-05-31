@@ -20,7 +20,7 @@ import java.util.List;
  * @see Adaptdor
  * @see Adaptdor.MyHolder
  * @see Adaptdor.OnClickCustom
- * @see Adaptdor.OnClickCustom#click(int) 
+ * @see Adaptdor.OnClickCustom#click(int)
  */
 public class ActivityRecycler extends AppCompatActivity implements Adaptdor.OnClickCustom {
 
