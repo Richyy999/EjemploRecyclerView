@@ -16,6 +16,7 @@ import java.util.List;
  * Activity principal de la aplicación. Contiene el RecyclerView con los datos de los hospitales
  * e implementa la interfaz personalizada del adaptador
  *
+ * @author Ricardo Bordería Pi
  * @see Hospital
  * @see Adaptdor
  * @see Adaptdor.MyHolder

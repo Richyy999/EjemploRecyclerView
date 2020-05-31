@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * Adaptador del RecyclerView. Se encarga de llenar el RecyclerView.
+ *
+ * @author Ricardo Bordería Pi
  */
 public class Adaptdor extends RecyclerView.Adapter<Adaptdor.MyHolder> {
 

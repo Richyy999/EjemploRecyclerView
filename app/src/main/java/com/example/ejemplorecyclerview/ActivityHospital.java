@@ -8,6 +8,7 @@ import android.widget.TextView;
 /**
  * Muestra el nombre del hospital seleccionado en el ActivityRecycler
  *
+ * @author Ricardo Bordería Pi
  * @see Hospital
  * @see ActivityRecycler
  */

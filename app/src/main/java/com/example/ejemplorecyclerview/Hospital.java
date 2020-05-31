@@ -2,6 +2,8 @@ package com.example.ejemplorecyclerview;
 
 /**
  * Contiene los datos de un hospital
+ *
+ * @author Ricardo Bordería Pi
  */
 public class Hospital {
 
